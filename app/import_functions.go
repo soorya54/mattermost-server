@@ -1117,6 +1117,10 @@ func (a *App) ImportDirectChannel(data *DirectChannelImportData, dryRun bool) *m
 		userMap[username] = user.Id
 	}
 
+	if len(userIds) == 1 {
+		userIds = append(userIds, userIds[0])
+	}
+
 	var channel *model.Channel
 
 	if len(userIds) == 2 {
@@ -1189,6 +1193,10 @@ func (a *App) ImportDirectPost(data *DirectPostImportData, dryRun bool) *model.A
 			return model.NewAppError("BulkImport", "app.import.import_direct_post.channel_member_not_found.error", nil, err.Error(), http.StatusBadRequest)
 		}
 		userIds = append(userIds, user.Id)
+	}
+
+	if len(userIds) == 1 {
+		userIds = append(userIds, userIds[0])
 	}
 
 	var channel *model.Channel

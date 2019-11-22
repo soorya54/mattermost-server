@@ -452,7 +452,7 @@ func validateDirectChannelImportData(data *DirectChannelImportData) *model.AppEr
 		return model.NewAppError("BulkImport", "app.import.validate_direct_channel_import_data.members_required.error", nil, "", http.StatusBadRequest)
 	}
 
-	if len(*data.Members) != 2 {
+	if len(*data.Members) == 0 || len(*data.Members) > 2 {
 		if len(*data.Members) < model.CHANNEL_GROUP_MIN_USERS {
 			return model.NewAppError("BulkImport", "app.import.validate_direct_channel_import_data.members_too_few.error", nil, "", http.StatusBadRequest)
 		} else if len(*data.Members) > model.CHANNEL_GROUP_MAX_USERS {
@@ -487,7 +487,7 @@ func validateDirectPostImportData(data *DirectPostImportData, maxPostSize int) *
 		return model.NewAppError("BulkImport", "app.import.validate_direct_post_import_data.channel_members_required.error", nil, "", http.StatusBadRequest)
 	}
 
-	if len(*data.ChannelMembers) != 2 {
+	if len(*data.ChannelMembers) == 0 || len(*data.ChannelMembers) > 2 {
 		if len(*data.ChannelMembers) < model.CHANNEL_GROUP_MIN_USERS {
 			return model.NewAppError("BulkImport", "app.import.validate_direct_post_import_data.channel_members_too_few.error", nil, "", http.StatusBadRequest)
 		} else if len(*data.ChannelMembers) > model.CHANNEL_GROUP_MAX_USERS {
